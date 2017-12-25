@@ -109,8 +109,7 @@
             <div class="fh5co-box">
                 <h3 class="heading">Categories</h3>
                 <ul>
-                  <li><a href="#myListings.html">My Listings</a></li>
-
+                    <li><a href="#myListings.html">My Listings</a></li>
                     <li><a href="#">Style</a></li>
                     <li><a href="#">Photography</a></li>
                     <li><a href="#">Food &amp; Drinks</a></li>
@@ -354,7 +353,8 @@
 </script>
 <script>
     function showListing(listing, key) {
-        var ref = firebase.storage().ref('shoes/' + key);
+        var listingRef = firebase.storage().ref('listings/' + key);
+        var userListingRef = firebase.storage().ref('user-listings/' + firebase.auth().currentUser.uid + "/" + key);
 
         baseHtml = document.createElement("Article");
         baseHtml.style.width = "25%";
@@ -403,6 +403,21 @@
         priceP.classList.add("col-xs-6");
         priceP.appendChild(price);
         fig.appendChild(priceP);
+
+        deleteButton = document.createElement("button");
+        deleteButton.innerHTML = "delete listing";
+        deleteButton.classList = "btn btn-danger";
+        deleteButton.classList.add("col-xs-12");
+        deleteButton.onclick = function() {
+            var updates = {};
+            updates['/listings/' + key] = null;
+            updates['/user-listings/' + firebase.auth().currentUser.uid + '/' + key] = null;
+
+            firebase.database().ref().update(updates);
+            alert("hi");
+
+        };
+        fig.appendChild(deleteButton);
 
         elem = document.getElementById("html");
         elem.appendChild(baseHtml);
