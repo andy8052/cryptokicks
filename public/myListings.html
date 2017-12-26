@@ -324,6 +324,10 @@
 </script>
 <script>
 
+    firebase.database().ref('listings').once('value').then(function(snapshot) {
+        localStorage.setItem("listings", JSON.stringify(snapshot.val()));
+    });
+
     firebase.database().ref('user-listings/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {
         localStorage.setItem("user-listings", JSON.stringify(snapshot.val()));
     });
@@ -414,8 +418,16 @@
             updates['/user-listings/' + firebase.auth().currentUser.uid + '/' + key] = null;
 
             firebase.database().ref().update(updates);
-            alert("hi");
 
+            firebase.database().ref('listings').once('value').then(function(snapshot) {
+                localStorage.setItem("listings", JSON.stringify(snapshot.val()));
+            });
+
+            firebase.database().ref('user-listings/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {
+                localStorage.setItem("user-listings", JSON.stringify(snapshot.val()));
+            });
+            
+            alert("Listing successfully deleted!");
         };
         fig.appendChild(deleteButton);
 

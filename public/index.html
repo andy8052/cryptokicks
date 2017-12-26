@@ -93,8 +93,8 @@
         <div id="firebaseui-auth-container"></div>
 
         <div class="fh5co-bio">
-            <button id="listingButton" onclick="newListing()">List New Shoe</button>
-            <button id="logout" onclick="firebase.auth().signOut(); location.reload()">Logout</button>
+            <button id="listingButton" onclick="newListing()" class="col-xs-12 btn btn-default">List New Shoe</button>
+            <button id="logout" onclick="firebase.auth().signOut(); location.reload()" class="col-xs-12 btn btn-info">Logout</button>
             <input class="form-control" id="shoeName" placeholder="Shoe Name" style="display: none">
             <input class="form-control" id="shoeSize" placeholder="Shoe Size" style="display: none">
             <input class="form-control" id="price" placeholder="Shoe Price" style="display: none">
